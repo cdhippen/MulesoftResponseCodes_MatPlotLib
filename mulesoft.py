@@ -1,6 +1,7 @@
 import re
 import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.dates as mdates
 from matplotlib.dates import drange, date2num
 import datetime
 
@@ -28,7 +29,13 @@ for i in datetimes:
     x = datetime.datetime.strptime(i, "%Y-%m-%d %H:%M:%S")
     x = date2num(x)
     dates2.append(x)
-
+fig, ax = plt.subplots(1)
+fig.autofmt_xdate()
 y = np.array(status_codes)
 x = np.array(dates2)
+
 plt.plot_date(x, y)
+xfmt = mdates.DateFormatter('%d-%m-%y %H:%M')
+ax.xaxis.set_major_formatter(xfmt)
+plt.gcf().autofmt_xdate()
+plt.show()
